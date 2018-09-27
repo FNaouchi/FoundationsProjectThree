@@ -11,9 +11,14 @@ def introduction():
     print("Hello, %s. Welcome to our portal." % my_name)
 
 def options():
+	repeat = False
 	while(True):
-		print("---------------------------\nWould you like to:")
-		opt = input("1) Create a new club.\n2) Browse and join clubs.\n3) View existing clubs.\n4) Display members of a club.\n-1) Close application.\n> ")
+		if repeat == False:
+			print("---------------------------\nWould you like to:")
+			opt = input("1) Create a new club.\n2) Browse and join clubs.\n3) View existing clubs.\n4) Display members of a club.\n-1) Close application.\n> ")
+		else:
+			repeat = False
+			opt = input("> ")
 		if opt == '1':
 			create_club()
 		elif opt == '2':
@@ -27,7 +32,7 @@ def options():
 			break
 		else:
 			print("Invalid option!")
-			break
+			repeat = True
 
 def create_club():
     name = input("What is your club name?\n> ")
@@ -75,7 +80,7 @@ def view_club_members():
 	while(True):
 		opt = input("> ")
 		for club in clubs:
-			if opt == club.name:
+			if opt.lower() == club.name.lower():
 				club.print_member_list()
 				input("Press \"Enter\" to continue.")
 				return
@@ -91,7 +96,7 @@ def join_clubs():
 	while(True):
 		opt = input("> ")
 		for club in clubs:
-			if opt == club.name:
+			if opt.lower() == club.name.lower():
 				for member in club.members:
 					if member.name == myself.name:
 						print("You are already in that club.")
